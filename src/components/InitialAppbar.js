@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, Button, IconButton, Typography } from '@mui/material';
+import { AppBar, Toolbar, IconButton, Typography } from '@mui/material';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
