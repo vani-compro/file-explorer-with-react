@@ -1,9 +1,13 @@
-import { AppBar,Button,  Toolbar, IconButton, Typography } from '@mui/material';
+import { Button, Box,  IconButton, Typography } from '@mui/material';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import '../App.css';
 import styled from 'styled-components';
+import InputForm from './InputForm'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import {useState} from 'react';
+import Files from './Files';
 
 const StyledTypography = styled(Typography)`
   font-weight: 800 !important;
@@ -13,52 +17,78 @@ const StyledAngleRight = styled(ChevronRightIcon)`
   font-weight: 800 !important;
 `
 
-const StyledDiv = styled.div`
+const StyledCreateDiv = styled.div`
   color: #bbb !important;
   position: absolute !important;
   right: 8rem;
-`
-
-const StyledToolbar = styled(Toolbar)`
-  width: 100%;
-  position: relative;
 `
 
 const StyledIconButton = styled(IconButton)`
   color: #bbb !important;
 `
 
+const StyledBox = styled(Box)`
+  color: #bbb;
+  display: flex;
+  justify-content: space-between;
+`
 
-const folderIconClicked = (id) => {
-  alert('folder button clicked.' + id)
-}
+const StyledDiv = styled.div`
+  margin-left: 2rem;
+`
 
-function InitialAppbar() {
+/** functions **/
+
+function InitialAppBar({fileStructure}) {
+
+  const [formVisible, setFormVisible] = useState(false);
+  const [arrowVisible, setArrowVisible] = useState(false);
+  const [fileNameVisible, setFileNameVisible] = useState(false);
+
+  function nameButtonClicked(event){
+    setArrowVisible(!arrowVisible);
+  }
+
+  const handleClick = (event, id, what) => {
+    console.log('click handled.');
+    setFormVisible(true);
+
+  }
+
+  console.log(fileStructure);
   return (
-    <AppBar color="transparent">
-      <StyledToolbar>
-        <Button color="inherit">
-          <StyledAngleRight />
+    <div>
+      <StyledBox>
+        <Button color="inherit" onClick={nameButtonClicked}>
+          {!arrowVisible && <StyledAngleRight />}
+          {arrowVisible && <ExpandMoreIcon />}
           <StyledTypography variant="body1">
             File Explorer
           </StyledTypography>
         </Button>
 
-        <StyledDiv>
+        <StyledCreateDiv>
 
-          <StyledIconButton>
+          <StyledIconButton onClick={(event)=>handleClick(event, 0, "file")}>
             <NoteAddIcon />
           </StyledIconButton>
 
-          <StyledIconButton onClick={()=>folderIconClicked(0)}>
+          <StyledIconButton onClick={(event)=>handleClick(event, 0, "folder")}>
             <CreateNewFolderIcon />
           </StyledIconButton>
 
-        </StyledDiv>
+        </StyledCreateDiv>
 
-      </StyledToolbar>
-    </AppBar>
+      </StyledBox>
+      {(formVisible && arrowVisible) && <StyledDiv>
+        <InputForm setFormVisible={setFormVisible} setFileNameVisible={setFileNameVisible}  fileStructure={fileStructure}/>
+      </StyledDiv>}
+      {(fileNameVisible && arrowVisible) && <StyledDiv>
+        <Files fileStructure={fileStructure}></Files>
+      </StyledDiv>}
+    </div>
+
   );
 }
 
-export default InitialAppbar;
+export default InitialAppBar;

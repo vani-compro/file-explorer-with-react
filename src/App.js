@@ -1,10 +1,15 @@
 import './App.css';
-import InitialAppbar from './components/InitialAppbar';
+import InitialAppBar from './components/InitialAppbar';
+
+let fileStructure = {
+  files: [],
+  folders: {}
+}
 
 function App() {
   return (
     <article>
-      <InitialAppbar />
+      <InitialAppBar fileStructure={fileStructure}/>
     </article>
   );
 }
