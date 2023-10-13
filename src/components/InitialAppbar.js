@@ -80,12 +80,16 @@ function InitialAppBar({fileStructure}) {
         </StyledCreateDiv>
 
       </StyledBox>
-      {(formVisible && arrowVisible) && <StyledDiv>
-        <InputForm setFormVisible={setFormVisible} setFileNameVisible={setFileNameVisible}  fileStructure={fileStructure}/>
-      </StyledDiv>}
+
       {(fileNameVisible && arrowVisible) && <StyledDiv>
         <Files fileStructure={fileStructure}></Files>
       </StyledDiv>}
+
+      {(formVisible && arrowVisible) && <StyledDiv>
+        <InputForm setFormVisible={setFormVisible} setFileNameVisible={setFileNameVisible}  fileStructure={fileStructure}/>
+      </StyledDiv>}
+
+
     </div>
 
   );

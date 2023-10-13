@@ -13,8 +13,8 @@ const StyledIconButton = styled(IconButton)`
 export default function Files({ fileStructure }) {
   return (
     <>
-      {fileStructure.files.map((file) => (
-        <div>
+      {fileStructure.files.map((file, index) => (
+        <div key={index}>
           <StyledIconButton>
             <InsertDriveFileIcon />
           </StyledIconButton>
