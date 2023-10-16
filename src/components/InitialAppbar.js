@@ -8,6 +8,7 @@ import InputForm from './InputForm'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {useState} from 'react';
 import Files from './Files';
+import Folders from './Folders.js'
 
 const StyledTypography = styled(Typography)`
   font-weight: 800 !important;
@@ -41,21 +42,26 @@ const StyledDiv = styled.div`
 
 function InitialAppBar({fileStructure}) {
 
-  const [formVisible, setFormVisible] = useState(false);
   const [arrowVisible, setArrowVisible] = useState(false);
+  const [fileFormVisible, setFileFormVisible] = useState(false);
   const [fileNameVisible, setFileNameVisible] = useState(false);
+  const [folderFormVisible, setFolderFormVisible] = useState(false);
+  const [folderNameVisible, setFolderNameVisible] = useState(false);
 
-  function nameButtonClicked(event){
+  function nameButtonClicked(){
     setArrowVisible(!arrowVisible);
   }
 
-  const handleClick = (event, id, what) => {
-    console.log('click handled.');
-    setFormVisible(true);
-
+  const handleClick = (what) => {
+    if(!arrowVisible){
+      nameButtonClicked();
+    }
+    if(what === 'file')
+      setFileFormVisible(true);
+    else
+      setFolderFormVisible(true);
   }
 
-  console.log(fileStructure);
   return (
     <div>
       <StyledBox>
@@ -69,11 +75,11 @@ function InitialAppBar({fileStructure}) {
 
         <StyledCreateDiv>
 
-          <StyledIconButton onClick={(event)=>handleClick(event, 0, "file")}>
+          <StyledIconButton onClick={(event)=>handleClick("file")}>
             <NoteAddIcon />
           </StyledIconButton>
 
-          <StyledIconButton onClick={(event)=>handleClick(event, 0, "folder")}>
+          <StyledIconButton onClick={(event)=>handleClick("folder")}>
             <CreateNewFolderIcon />
           </StyledIconButton>
 
@@ -85,8 +91,16 @@ function InitialAppBar({fileStructure}) {
         <Files fileStructure={fileStructure}></Files>
       </StyledDiv>}
 
-      {(formVisible && arrowVisible) && <StyledDiv>
-        <InputForm setFormVisible={setFormVisible} setFileNameVisible={setFileNameVisible}  fileStructure={fileStructure}/>
+      {(fileFormVisible && arrowVisible) && <StyledDiv>
+        <InputForm setFormVisible={setFileFormVisible} setNameVisible={setFileNameVisible}  fileStructure={fileStructure} what='file'/>
+      </StyledDiv>}
+
+      {(folderNameVisible && arrowVisible) && <StyledDiv>
+        <Folders fileStructure={fileStructure}></Folders>
+      </StyledDiv>}
+
+      {(folderFormVisible && arrowVisible) && <StyledDiv>
+        <InputForm setFormVisible={setFolderFormVisible} setNameVisible={setFolderNameVisible}  fileStructure={fileStructure} what='folder'/>
       </StyledDiv>}
 
 
