@@ -31,14 +31,21 @@ const InlineDiv= styled.div`
 `
 
 const ButtonDiv = styled(InlineDiv)`
+  display: flex !important;
   position: absolute !important;
   right: 8rem;
 `
 
 const StyledDiv = styled.div`
-  display: flex;
+  display: flex !important;
   justify-content: space-between;
 `
+
+const StyledNames = styled.div`
+  margin-left: 2.5rem;
+`
+
+
 export default function OneFolder({folder, fileStructure}){
   const [arrowVisible, setArrowVisible] = useState(false);
   const [fileFormVisible, setFileFormVisible] = useState(false);
@@ -46,8 +53,11 @@ export default function OneFolder({folder, fileStructure}){
   const [folderFormVisible, setFolderFormVisible] = useState(false);
   const [folderNameVisible, setFolderNameVisible] = useState(false);
 
-
+  let [folderClicked, setFolderClicked] = useState('');
   const handleClick = (event, what) => {
+    setFolderClicked(event.currentTarget.parentElement.parentElement.firstChild.firstChild.lastChild.previousSibling.innerHTML);
+    event.stopPropagation();
+
     if(!arrowVisible){
       nameButtonClicked();
     }
@@ -60,6 +70,8 @@ export default function OneFolder({folder, fileStructure}){
   const nameButtonClicked = (e) => {
     setArrowVisible(!arrowVisible);
   }
+
+  console.log(arrowVisible, fileNameVisible);
   return (
     <>
       <StyledDiv key={Math.random()}>
@@ -76,30 +88,40 @@ export default function OneFolder({folder, fileStructure}){
           </StyledNameButton>
         </InlineDiv>
         <ButtonDiv>
-          <StyledIconButton onClick={(event)=>handleClick(event, "file")}>
-            <NoteAddIcon />
-          </StyledIconButton>
+          <div onClick={(event)=>handleClick(event, "file")}>
+            <StyledIconButton >
+              <NoteAddIcon />
+            </StyledIconButton>
+          </div>
 
-          <StyledIconButton onClick={(event)=>handleClick(event, "folder")}>
-            <CreateNewFolderIcon />
-          </StyledIconButton>
+          <div onClick={(event)=>handleClick(event, "folder")}>
+            <StyledIconButton >
+              <CreateNewFolderIcon />
+            </StyledIconButton>
+          </div>
+
         </ButtonDiv>
       </StyledDiv>
-      {(fileNameVisible && arrowVisible) && <StyledDiv>
-        <Files fileStructure={fileStructure}></Files>
-      </StyledDiv>}
 
-      {(fileFormVisible && arrowVisible) && <StyledDiv>
-        <InputForm setFormVisible={setFileFormVisible} setNameVisible={setFileNameVisible}  fileStructure={fileStructure} what='file'/>
-      </StyledDiv>}
+      <div>
 
-      {(folderNameVisible && arrowVisible) && <StyledDiv>
-        <Folders fileStructure={fileStructure}></Folders>
-      </StyledDiv>}
+      {(fileNameVisible && arrowVisible) && <StyledNames>
+        <Files fileStructure={fileStructure} folderClicked={folderClicked}></Files>
+      </StyledNames>}
 
-      {(folderFormVisible && arrowVisible) && <StyledDiv>
-        <InputForm setFormVisible={setFolderFormVisible} setNameVisible={setFolderNameVisible}  fileStructure={fileStructure} what='folder'/>
-      </StyledDiv>}
+      {(fileFormVisible && arrowVisible) && <div>
+        <InputForm setFormVisible={setFileFormVisible} setNameVisible={setFileNameVisible}  fileStructure={fileStructure} what='file' folderClicked={folderClicked}/>
+      </div>}
+
+      {(folderNameVisible && arrowVisible) && <StyledNames>
+        <Folders fileStructure={fileStructure} folderClicked={folderClicked}></Folders> 
+      </StyledNames>}
+
+      {(folderFormVisible && arrowVisible) && <div>
+        <InputForm setFormVisible={setFolderFormVisible} setNameVisible={setFolderNameVisible}  fileStructure={fileStructure} what='folder' folderClicked={folderClicked}/>
+      </div>}
+
+      </div>
     </>
   )
 }

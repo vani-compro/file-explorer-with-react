@@ -1,10 +1,20 @@
 import OneFolderItem from './OneFolder'
+import { useState, useEffect } from 'react';
 
+export default function Folders({ fileStructure, folderClicked='' }) {
+  const [location, setLocation] = useState('');
 
-export default function Folders({ fileStructure }) {
+  useEffect(()=>{
+    if(folderClicked === ''){
+      setLocation(fileStructure);
+    }else if(folderClicked){
+      setLocation(fileStructure[`${folderClicked}`]);
+      console.log(fileStructure[`${folderClicked}`]);
+    }
+  },[folderClicked, fileStructure]);
   return (
     <>
-      {Object.keys(fileStructure.folders).map((folder, index) => (
+      {location && Object.keys(location.folders).map((folder, index) => (
         <OneFolderItem key={index} folder={folder} fileStructure={fileStructure.folders}/>
       ))}
     </>

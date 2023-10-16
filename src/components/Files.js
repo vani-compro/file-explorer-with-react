@@ -1,6 +1,7 @@
 import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 import styled from 'styled-components';
 import { IconButton } from '@mui/material';
+import { useState, useEffect } from 'react';
 
 const StyledFileName = styled.p`
   display: inline !important;
@@ -10,10 +11,22 @@ const StyledIconButton = styled(IconButton)`
   color: #bbb !important;
 `
 
-export default function Files({ fileStructure }) {
+export default function Files({ fileStructure, folderClicked='' }) {
+  const [location, setLocation] = useState('');
+
+  useEffect(()=>{
+    if(folderClicked === ''){
+      setLocation(fileStructure);
+    }else if(folderClicked){
+      setLocation(fileStructure[`${folderClicked}`]);
+      console.log(fileStructure[`${folderClicked}`]);
+    }
+  },[folderClicked, fileStructure]);
+
+  console.log(fileStructure.files)
   return (
     <>
-      {fileStructure.files.map((file, index) => (
+      {location && location.files.map((file, index) => (
         <div key={index}>
           <StyledIconButton>
             <InsertDriveFileIcon />
