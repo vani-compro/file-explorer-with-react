@@ -71,7 +71,7 @@ export default function OneFolder({folder, fileStructure}){
     setArrowVisible(!arrowVisible);
   }
 
-  console.log(arrowVisible, fileNameVisible);
+  // console.log(fileStructure);
   return (
     <>
       <StyledDiv key={Math.random()}>
@@ -109,17 +109,17 @@ export default function OneFolder({folder, fileStructure}){
         <Files fileStructure={fileStructure} folderClicked={folderClicked}></Files>
       </StyledNames>}
 
-      {(fileFormVisible && arrowVisible) && <div>
+      {(fileFormVisible && arrowVisible) && <StyledNames>
         <InputForm setFormVisible={setFileFormVisible} setNameVisible={setFileNameVisible}  fileStructure={fileStructure} what='file' folderClicked={folderClicked}/>
-      </div>}
-
-      {(folderNameVisible && arrowVisible) && <StyledNames>
-        <Folders fileStructure={fileStructure} folderClicked={folderClicked}></Folders> 
       </StyledNames>}
 
-      {(folderFormVisible && arrowVisible) && <div>
+      {(folderNameVisible && arrowVisible) && <StyledNames>
+        <Folders fileStructure={fileStructure} folderClicked={folderClicked}></Folders>
+      </StyledNames>}
+
+      {(folderFormVisible && arrowVisible) && <StyledNames>
         <InputForm setFormVisible={setFolderFormVisible} setNameVisible={setFolderNameVisible}  fileStructure={fileStructure} what='folder' folderClicked={folderClicked}/>
-      </div>}
+      </StyledNames>}
 
       </div>
     </>

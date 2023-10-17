@@ -10,6 +10,7 @@ function App() {
   return (
     <article>
       <InitialAppBar fileStructure={fileStructure}/>
+      {console.log(fileStructure)}
     </article>
   );
 }

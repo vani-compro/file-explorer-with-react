@@ -61,6 +61,7 @@ function InitialAppBar({fileStructure}) {
     else
       setFolderFormVisible(true);
   }
+  //console.log(fileStructure);
 
   return (
     <div>
@@ -92,7 +93,7 @@ function InitialAppBar({fileStructure}) {
       </StyledDiv>}
 
       {(fileFormVisible && arrowVisible) && <StyledDiv>
-        <InputForm setFormVisible={setFileFormVisible} setNameVisible={setFileNameVisible}  fileStructure={fileStructure} what='file'/>
+        <InputForm setFormVisible={setFileFormVisible} setNameVisible={setFileNameVisible}  fileStructure={fileStructure} what='file' initialFileStructure={fileStructure}/>
       </StyledDiv>}
 
       {(folderNameVisible && arrowVisible) && <StyledDiv>
@@ -100,7 +101,7 @@ function InitialAppBar({fileStructure}) {
       </StyledDiv>}
 
       {(folderFormVisible && arrowVisible) && <StyledDiv>
-        <InputForm setFormVisible={setFolderFormVisible} setNameVisible={setFolderNameVisible}  fileStructure={fileStructure} what='folder'/>
+        <InputForm setFormVisible={setFolderFormVisible} setNameVisible={setFolderNameVisible}  fileStructure={fileStructure} what='folder' initialFileStructure={fileStructure}/>
       </StyledDiv>}
 
 

@@ -25,15 +25,15 @@ export default function InputForm({setFormVisible, setNameVisible, fileStructure
 
 
   function handleSubmit(e){
-    console.log(e);
+    // console.log(e);
     setFormVisible(false);
     setNameVisible(true);
     if(folderClicked===''){
       if(what==='file'){
-        console.log( Object.keys(fileStructure), fileStructure.files, inputText);
+        // console.log( Object.keys(fileStructure), fileStructure.files, inputText);
         fileStructure.files.push(inputText);
       }else{
-        console.log(fileStructure, fileStructure.folders, inputText);
+        // console.log(fileStructure, fileStructure.folders, inputText);
         fileStructure.folders[`${inputText}`] = {
           files: [],
           folders: {}
@@ -41,22 +41,23 @@ export default function InputForm({setFormVisible, setNameVisible, fileStructure
       }
     }else if(folderClicked){
       if(what==='file'){
-        console.log( Object.keys(fileStructure), fileStructure.files, inputText);
+        // console.log( Object.keys(fileStructure), fileStructure.files, inputText);
         fileStructure[`${folderClicked}`].files.push(inputText);
       }else{
-        console.log(fileStructure, fileStructure.folders, inputText);
+        // console.log(fileStructure, fileStructure.folders, inputText);
         fileStructure[`${folderClicked}`].folders[`${inputText}`] = {
           files: [],
           folders: {}
         }
       }
     }
-    console.log(fileStructure);
+    // console.log(fileStructure);
   }
 
   function handleChange(e){
     setInputText(e.target.value);
   }
+  // console.log(fileStructure);
   return (
     <StyledFormControl>
       <StyledIconButton>

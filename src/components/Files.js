@@ -19,11 +19,11 @@ export default function Files({ fileStructure, folderClicked='' }) {
       setLocation(fileStructure);
     }else if(folderClicked){
       setLocation(fileStructure[`${folderClicked}`]);
-      console.log(fileStructure[`${folderClicked}`]);
+      // console.log(fileStructure[`${folderClicked}`]);
     }
   },[folderClicked, fileStructure]);
 
-  console.log(fileStructure.files)
+  // console.log(fileStructure)
   return (
     <>
       {location && location.files.map((file, index) => (
